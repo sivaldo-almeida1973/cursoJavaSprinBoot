@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Category implements Serializable{
 	
 
@@ -12,6 +14,10 @@ public class Category implements Serializable{
 	private Long id;
 	private String name;
 	
+	
+	
+	
+	@JsonIgnore                   //lista de produtos
 	private List<Product> products = new ArrayList<>();
 	
 	public Category() {
@@ -39,11 +45,6 @@ public class Category implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
 	
 	
 
@@ -51,7 +52,13 @@ public class Category implements Serializable{
 		return products;
 	}
 
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -62,9 +69,13 @@ public class Category implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Category other = (Category) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
 
 }

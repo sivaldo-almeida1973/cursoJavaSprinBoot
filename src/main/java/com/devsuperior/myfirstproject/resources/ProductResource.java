@@ -1,6 +1,6 @@
 package com.devsuperior.myfirstproject.resources;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,23 +17,19 @@ import com.devsuperior.myfirstproject.repositories.ProductRepository;
 @RequestMapping(value = "/products")
 public class ProductResource {
 	
-	@Autowired    //Injeção de dependencias
+	@Autowired
 	private ProductRepository categoryRepository;
-	
-	
-	@GetMapping    //vai fazer a busca no banco
+
+	@GetMapping
 	public ResponseEntity<List<Product>> findAll() {
 		List<Product> list = categoryRepository.findAll();
 		return ResponseEntity.ok().body(list);
 	}
-	
-	
+
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Product> findById(@PathVariable Long id) {
-		Product cat =categoryRepository.findById(id);
+		Product cat = categoryRepository.findById(id);
 		return ResponseEntity.ok().body(cat);
 	}
 	
-	
-
 }
